@@ -57,8 +57,6 @@ public class PaymentClass {
         if(paymentId.size()>0){
             List<TaskC__c> tasks = [SELECT Id FROM TaskC__c WHERE Name LIKE 'Chuyen khoan %' AND Related_To__c IN :paymentId];
             tasksToDel.addAll(tasks);
-        }
-        if(tasksToDel.size()>0){
             delete tasksToDel;
         }
     }
