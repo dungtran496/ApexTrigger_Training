@@ -42,15 +42,15 @@ public class PaymentClass {
     }
 
     //4.Del all task start = 'chuyen khoan' khi payment method chuyen tu 'chuyen khoan' sang gtri khac  
-    public static void delTask(List<PaymentC__c> newPayments) {
-        deleteTask(newPayments);
+    public static void delTask(List<PaymentC__c> newPayments, Map<Id, PaymentC__c> oldMap) {
+        deleteTask(newPayments, oldMap);
     }
 
-    private static void deleteTask(List<PaymentC__c> newPayments) {
+    private static void deleteTask(List<PaymentC__c> newPayments, Map<Id, PaymentC__c> oldMap) {
         List<TaskC__c> tasksToDel = new List<TaskC__c>();
         Set<Id> paymentId = new Set<Id>();
         for(PaymentC__c pay: newPayments){
-            if(pay.Payment_method__c != 'Chuyen khoan'){
+            if(oldMap.get(pay.Id).Payment_method__c == 'Chuyen khoan' && pay.Payment_method__c != 'Chuyen khoan'){
                 paymentId.add(pay.Id);
             }
         }
