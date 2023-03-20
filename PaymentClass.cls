@@ -47,7 +47,6 @@ public class PaymentClass {
     }
 
     private static void deleteTask(List<PaymentC__c> newPayments, Map<Id, PaymentC__c> oldMap) {
-        List<TaskC__c> tasksToDel = new List<TaskC__c>();
         Set<Id> paymentId = new Set<Id>();
         for(PaymentC__c pay: newPayments){
             if(oldMap.get(pay.Id).Payment_method__c == 'Chuyen khoan' && pay.Payment_method__c != 'Chuyen khoan'){
@@ -55,9 +54,12 @@ public class PaymentClass {
             }
         }
         if(paymentId.size()>0){
-            List<TaskC__c> tasks = [SELECT Id FROM TaskC__c WHERE Name LIKE 'Chuyen khoan %' AND Related_To__c IN :paymentId];
-            tasksToDel.addAll(tasks);
-            delete tasksToDel;
+            List<TaskC__c> tasks = [SELECT Id
+                                    FROM TaskC__c 
+                                    WHERE Related_To__c IN :paymentId
+                                    AND Subject__c Like 'Chuyen khoan %'
+                                   ];
+            delete tasks;
         }
     }
 }
