@@ -17,6 +17,6 @@ trigger PaymentTrigger on PaymentC__c (before insert, before update, after updat
 
     //Khi Payment method:'chuyen khoan' -> giá trị khác. Del all task named start with 'chuyen khoan'
     if(Trigger.isAfter && Trigger.isUpdate) {
-        paymentClass.delTask(Trigger.New, Trigger.OldMap);
+        paymentClass.delTask(Trigger.New);
     }
 }
