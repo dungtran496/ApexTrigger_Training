@@ -14,7 +14,7 @@
 * Status: Not Started
 * Related To: Payment
 
-**4.** Khi Payment method chuyển từ 'Chuyen khoan' sang giá trị khác. Del tất cả các task có tên bắt đầu với 'Chuyen khoan ....'
+**4.** Khi Payment method chuyển từ 'Chuyen khoan' sang giá trị khác. Xóa tất cả các task có tên bắt đầu với 'Chuyen khoan ....'
 
 ## instruction
 **1.** Trong PaymentC tạo các customer field:
@@ -25,10 +25,8 @@
 * Status: Picklist: New, Progress, Done, Cancelled
 
 **2.** Trong TaskC tạo các customer field:
-* Due Date
-* Priority
-* Related To
-* Status
-* Owner
-* Subject
+* Due Date: Date
+* Priority: Picklist: High, Normal, Low
+* Status: Picklist: Not Started, In Progress, Completed, Waiting on someone else.
+* Subject: Text
 * Related To: Lookup(PaymentC) 
