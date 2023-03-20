@@ -18,11 +18,11 @@
 
 ## instruction
 **1.** Trong PaymentC tạo các customer field:
-* Amount 
-* Final Amount
-* Payment Date
-* Payment Method
-* Status
+* Amount
+* Final Amount: always requiment
+* Payment Date: Date
+* Payment Method: Picklist: Chuyen khoan, Tien mat, QR code, ...
+* Status: Picklist: New, Progress, Done, Cancelled
 
 **2.** Trong TaskC tạo các customer field:
 * Due Date
