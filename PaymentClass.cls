@@ -48,11 +48,15 @@ public class PaymentClass {
 
     private static void deleteTask(List<PaymentC__c> newPayments, Map<Id, PaymentC__c> oldMap) {
         List<TaskC__c> tasksToDel = new List<TaskC__c>();
-        for(oldMap.get(pay.Id).Payment_method__c == 'Chuyen khoan' && PaymentC__c pay: newPayments){
-            if(pay.Payment_method__c != 'Chuyen khoan'){
-                List<TaskC__c> tasks = [SELECT Id FROM TaskC__c WHERE Name LIKE 'Chuyen khoan %' AND Related_To__c = :pay.Id];
-            tasksToDel.addAll(tasks);
+        Set<Id> paymentId = new Set<Id>();
+        for(PaymentC__c pay: newPayments){
+            if(oldMap.get(pay.Id).Payment_method__c == 'Chuyen khoan' && pay.Payment_method__c != 'Chuyen khoan'){
+                paymentId.add(pay.Id);
             }
+        }
+        if(paymentId.size()>0){
+            List<TaskC__c> tasks = [SELECT Id FROM TaskC__c WHERE Name LIKE 'Chuyen khoan %' AND Related_To__c IN :paymentId];
+            tasksToDel.addAll(tasks);
         }
         if(tasksToDel.size()>0){
             delete tasksToDel;
