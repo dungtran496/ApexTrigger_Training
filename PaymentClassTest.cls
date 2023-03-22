@@ -22,7 +22,7 @@ public class PaymentClassTest {
     @isTest   //Case 1: Test update Final Amount = Amount khi Status = 'Done'
     static void updateAmountTest_1(){
         //  start test method
-        PaymentC__c currPm = [select Id, Status__c from  PaymentC__c limit 1];  //Lấy giá trị để test
+        PaymentC__c currPm = [select Id, Status__c from  PaymentC__c limit 1];  
         currPm.Status__c = 'Done';
         Test.startTest();
         update currPm;
@@ -37,12 +37,12 @@ public class PaymentClassTest {
         PaymentC__c currPm = [select Id, Status__c from PaymentC__c limit 1];
         currPm.Status__c = 'Done';
         Test.startTest();
-        update currPm;                       // 
-        currPm.Status__c = 'New';            //
+        update currPm;
+        currPm.Status__c = 'New';
         try{  
             update currPm;
         } catch(exception e) {
-            system.Assert(e.getMessage().contains('Cannot change Status'));  // check add error 
+            system.Assert(e.getMessage().contains('Cannot change Status'));
         }
         Test.stopTest();
     }
@@ -52,14 +52,14 @@ public class PaymentClassTest {
         //  start test method
         PaymentC__c currPm = [select Id, Payment_method__c from PaymentC__c limit 1]; 
         List<TaskC__c> lsTaskBefore = [Select id, Name, Related_To__c, Subject__c from TaskC__c];
-        system.debug('lsTaskBefore: '+ lsTaskBefore);    // Đặt debug để kiểm tra nếu có lỗi
-        System.Assert(lsTaskBefore.size() == 2);     // == 2 vì 1 task đc tạo ra khi payment method = Chuyen khoan và 1 task đc khai báo
+        system.debug('lsTaskBefore: '+ lsTaskBefore);
+        System.Assert(lsTaskBefore.size() == 2);
         Test.startTest();
         currPm.Payment_method__c = 'money';
         update currPm;
         Test.stopTest();
         List<TaskC__c> lsTask = [Select id, Name, Related_To__c, Subject__c from TaskC__c];  
-        system.debug(lsTask);               // Đặt debug để kiểm tra nếu có lỗi
+        system.debug(lsTask);        
         System.Assert(lsTask.size() == 0);         
     }
 }
